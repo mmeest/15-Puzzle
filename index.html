@@ -134,7 +134,7 @@
     var btns = [ btn01, btn02, btn03, btn04, btn05, btn06, btn07, btn08,
                  btn09, btn10, btn11, btn12, btn13, btn14, btn15, btn16 ];
 
-    var orderedList = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, "" ];
+    var orderedList = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ];
     var randomizedList = [];
     var randomItem = 0;
 
@@ -155,19 +155,22 @@
     }
 
     function solvable(compare, difference, randomizedList){
-        for(i = 0; i < randomizedList.length - 1; i++){
-            if(compare < randomizedList[i]){
-                difference += 1;
+        
+        for(i = 0; i < randomizedList.length; i++){
+            for(j = i; j < randomizedList.length; j++){
+                if(randomizedList[i] > randomizedList[j]){
+                    difference += 1;
+                }
             }
-            compare = randomizedList[i];
         }
+
         console.log("difference");
         console.log(difference);
-        console.log("difference");
-        if(difference % 2 == 0 && randomizedList[0] % 2 == 0 ||
-            difference % 2 == 1 && randomizedList[0] % 2 == 1){
+        console.log("difference");    
+
+        if(difference % 2 == 1){
             window.location.reload();
-        }        
+        }   
     }
 
     console.log(randomizedList);
@@ -236,7 +239,6 @@
     }
 
     function checkWinning(){
-        console.log("hterh");
         if(
             btn01.textContent == "1" &&
             btn02.textContent == "2" &&
@@ -255,7 +257,6 @@
             btn15.textContent == "15" &&
             btn16.textContent == ""
         ){
-            console.log("Good Work!");
             document.getElementById("layer1").style.zIndex = "1";
             document.getElementById("layer1").classList.add("animation");
         }else{
