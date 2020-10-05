@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15 Game</title>
+    <style>
+        /* #mainTable{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 500px;
+            border: 3px solid green; 
+        } */
+        body{
+            background: linear-gradient(90deg, rgba(4,2,31,1) 0%, rgba(71,119,213,1) 16%, 
+            rgba(71,119,213,1) 24%, rgba(4,2,31,1) 48%, rgba(4,2,31,1) 52%, rgba(21,21,96,1) 100%);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 4vh;
+            color:bisque;
+        }
+        .btn{
+            width: 12vh;
+            height: 12vh;
+            border-radius: 50%;
+            background-image: radial-gradient(rgb(77, 77, 3), rgb(9, 36, 11));
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            font-size: 5vh;
+        }
+        #newGame{
+            position: relative;
+            z-index: 100;
+            height: 8vh;
+            font-size: 3vh;
+            background-image: radial-gradient(rgb(77, 77, 3), rgb(9, 36, 11));
+            color: white;
+            border-radius: 2vh;
+        }
+        button:hover, #newGame:hover{
+            border-radius: 40%;
+            cursor: pointer;
+            color: rgb(24, 36, 70);
+            background-image: radial-gradient(yellow, rgb(21, 82, 24));
+        }
+        #firstCell, #secondCell{
+            width: 50vw;            
+        }
+        #layer1{
+            display: none;
+            opacity: 0;
+            display : flex;
+            align-items : center;
+            justify-content: center;    
+        }
+        @keyframes goodWork{
+            0% {font-size: 1px; opacity: 0}
+            100% {font-size: 14em; opacity: 1}
+        }
+        .animation{
+            animation-name: goodWork;
+            animation-duration: 3s;
+        }
+    </style>
+</head>
+<body onload="newGame('Hello')">  
+    <div style="position: absolute; width: 100vw; height: 100vh; z-index: -1;" id="layer1" 
+        display="inline-block" align="center" vertical-align="middle">Game<br>Over!</div>
+    <br><br><br>
+    <table>
+        <tr>
+            <td id="firstCell" align="center">
+                <table>
+                    
+                    <td id="mainTable">
+                        <tr>
+                            <td><button class="btn" id="10" onclick="mainAction(10)"></button></td>
+                            <td><button class="btn" id="11" onclick="mainAction(11)"></button></td>
+                            <td><button class="btn" id="12" onclick="mainAction(12)"></button></td>
+                            <td><button class="btn" id="13" onclick="mainAction(13)"></button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="btn" id="20" onclick="mainAction(20)"></button></td>
+                            <td><button class="btn" id="21" onclick="mainAction(21)"></button></td>
+                            <td><button class="btn" id="22" onclick="mainAction(22)"></button></td>
+                            <td><button class="btn" id="23" onclick="mainAction(23)"></button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="btn" id="30" onclick="mainAction(30)"></button></td>
+                            <td><button class="btn" id="31" onclick="mainAction(31)"></button></td>
+                            <td><button class="btn" id="32" onclick="mainAction(32)"></button></td>
+                            <td><button class="btn" id="33" onclick="mainAction(33)"></button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="btn" id="40" onclick="mainAction(40)"></button></td>
+                            <td><button class="btn" id="41" onclick="mainAction(41)"></button></td>
+                            <td><button class="btn" id="42" onclick="mainAction(42)"></button></td>
+                            <td><button class="btn" id="43" onclick="mainAction(43)"></button></td>
+                        </tr>
+                    </td>
+                </table>
+            </td>
+            <td id="secondCell">
+                <div id="points">
+                    Points: 0
+                </div><br>
+                <div id="moves">
+                    Moves: 0
+                </div><br>
+                <button onclick=window.location.reload() id="newGame">New Game</button><br>
+            </td>
+        </tr>
+    </table>  
+</body>
+<script>
+    const btn01 = document.getElementById("10");
+    const btn02 = document.getElementById("11");
+    const btn03 = document.getElementById("12");
+    const btn04 = document.getElementById("13");
+    const btn05 = document.getElementById("20");
+    const btn06 = document.getElementById("21");
+    const btn07 = document.getElementById("22");
+    const btn08 = document.getElementById("23");
+    const btn09 = document.getElementById("30");
+    const btn10 = document.getElementById("31");
+    const btn11 = document.getElementById("32");
+    const btn12 = document.getElementById("33");
+    const btn13 = document.getElementById("40");
+    const btn14 = document.getElementById("41");
+    const btn15 = document.getElementById("42");
+    const btn16 = document.getElementById("43");
+
+    var btns = [ btn01, btn02, btn03, btn04, btn05, btn06, btn07, btn08,
+                 btn09, btn10, btn11, btn12, btn13, btn14, btn15, btn16 ];
+
+    var orderedList = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, "" ];
+    var randomizedList = [];
+    var randomItem = 0;
+
+    randomizer();
+
+    function randomizer(){
+        while(orderedList.length > 0){
+            randomItem = orderedList[Math.floor(Math.random()*orderedList.length)]
+            var index = orderedList.indexOf(randomItem);
+            orderedList.splice(index, 1);
+            console.log(randomItem);
+            randomizedList.push(randomItem);
+        }
+
+        var compare = 0;
+        var difference = 0;
+        solvable(compare, difference, randomizedList);
+    }
+
+    function solvable(compare, difference, randomizedList){
+        for(i = 0; i < randomizedList.length - 1; i++){
+            if(compare < randomizedList[i]){
+                difference += 1;
+            }
+            compare = randomizedList[i];
+        }
+        console.log("difference");
+        console.log(difference);
+        console.log("difference");
+        if(difference % 2 == 0 && randomizedList[0] % 2 == 0 ||
+            difference % 2 == 1 && randomizedList[0] % 2 == 1){
+            window.location.reload();
+        }        
+    }
+
+    console.log(randomizedList);
+
+    function newGame(hello){
+            console.log(btns.length);
+        for(i = 0; i < btns.length; i++){
+            btns[i].textContent = randomizedList[i];
+        }
+    }
+    
+    var numOfMoves = 0;
+    var points = 0;
+    var pointsValue = 100;
+
+    function mainAction(mainValue){        
+        var X = document.getElementById(mainValue.toString());
+        
+        var A = document.getElementById((mainValue - 1).toString());
+        var B = document.getElementById((mainValue + 1).toString());
+        var C = document.getElementById((mainValue - 10).toString());
+        var D = document.getElementById((mainValue + 10).toString());
+
+        var theNumber = document.getElementById(mainValue.toString()).innerHTML;
+        console.log(theNumber);        
+
+        if(A != null && A.textContent == ""){
+            A.innerHTML = theNumber;
+            X.innerHTML = "";
+            numOfMoves += 1;
+            document.getElementById("moves").innerHTML = "Moves: " + numOfMoves;
+            points += pointsValue;
+            pointsValue -= 1;
+            document.getElementById("points").innerHTML = "Points: " + points;
+            checkWinning()
+        } else if(B != null && B.textContent == ""){
+            B.innerHTML = theNumber;
+            X.innerHTML = "";
+            numOfMoves += 1;
+            document.getElementById("moves").innerHTML = "Moves: " + numOfMoves;
+            points += pointsValue;
+            pointsValue -= 1;
+            document.getElementById("points").innerHTML = "Points: " + points;
+            checkWinning()
+        } else if(C != null && C.textContent == ""){
+            C.innerHTML = theNumber;
+            X.innerHTML = "";
+            numOfMoves += 1;
+            document.getElementById("moves").innerHTML = "Moves: " + numOfMoves;
+            points += pointsValue;
+            pointsValue -= 1;
+            document.getElementById("points").innerHTML = "Points: " + points;
+            checkWinning()
+        } else if(D != null && D.textContent == ""){
+            D.innerHTML = theNumber;
+            X.innerHTML = "";
+            numOfMoves += 1;
+            document.getElementById("moves").innerHTML = "Moves: " + numOfMoves;
+            points += pointsValue;
+            pointsValue -= 1;
+            document.getElementById("points").innerHTML = "Points: " + points;
+            checkWinning()
+        } else {
+            return
+        }
+    }
+
+    function checkWinning(){
+        console.log("hterh");
+        if(
+            btn01.textContent == "1" &&
+            btn02.textContent == "2" &&
+            btn03.textContent == "3" &&
+            btn04.textContent == "4" &&
+            btn05.textContent == "5" &&
+            btn06.textContent == "6" &&
+            btn07.textContent == "7" &&
+            btn08.textContent == "8" &&
+            btn09.textContent == "9" &&
+            btn10.textContent == "10" &&
+            btn11.textContent == "11" &&
+            btn12.textContent == "12" &&
+            btn13.textContent == "13" &&
+            btn14.textContent == "14" &&
+            btn15.textContent == "15" &&
+            btn16.textContent == ""
+        ){
+            console.log("Good Work!");
+            document.getElementById("layer1").style.zIndex = "1";
+            document.getElementById("layer1").classList.add("animation");
+        }else{
+            return;
+        }
+    }
+</script>
+</html>
