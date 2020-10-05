@@ -7,6 +7,3 @@ Classical 15 puzzle in JavaScript
 * 4x4 puzzle
 * Points counter
 * Moves counter
-
-## Todo
-* Modify solvable function
