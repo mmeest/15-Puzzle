@@ -1,3 +1,5 @@
+![header](https://capsule-render.vercel.app/api?type=slice&color=auto&height=130&section=header&text=15%Game&fontSize=40&fontAlign=80)
+
 <img src="Screenshot.jpg" width="400px">
 
 # 15-Puzzle
@@ -7,3 +9,5 @@ Classical 15 puzzle in JavaScript
 * 4x4 puzzle
 * Points counter
 * Moves counter
+
+![footer](https://capsule-render.vercel.app/api?type=slice&color=auto&height=130&section=header&text=Tic-Tac-Toe&fontSize=40&fontAlign=20)
