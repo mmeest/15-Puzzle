@@ -10,4 +10,4 @@ Classical 15 puzzle in JavaScript
 * Points counter
 * Moves counter
 
-![footer](https://capsule-render.vercel.app/api?type=slice&color=auto&height=130&section=footer&text=15%Game&fontSize=40&fontAlign=20)
+![footer](https://capsule-render.vercel.app/api?type=slice&color=auto&height=130&section=footer&fontSize=40&fontAlign=20)
