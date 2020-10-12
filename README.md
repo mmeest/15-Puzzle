@@ -5,6 +5,8 @@
 # 15-Puzzle
 Classical 15 puzzle in JavaScript
 
+![](Screen.gif)
+
 ## Features
 * 4x4 puzzle
 * Points counter
